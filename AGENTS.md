@@ -15,7 +15,7 @@
 - 계층 간 import는 server/ → protocol/ → commands/ → store/ 방향을 따릅니다.
 - 계층 간 공통 타입은 `src/types.ts`에 정의합니다.
 - 명령 하나는 commands/ 아래 파일 하나와 test/ 아래 테스트 하나로 구성합니다.
-- 에러 응답 형식은 합의 후 `src/types.ts`에 정의하고 그 정의를 따릅니다.
+- 에러 응답 형식은 `src/types.ts`의 정의를 따릅니다.
 - 명령 실행 경로(commands/, store/)는 동기로 작성하고 `await`를 쓰지 않습니다. 싱글 스레드에서 명령의 원자성은 이 규칙에 기댑니다.
 - 비동기 작업(HTTP body 읽기 등)은 protocol/ 이상에서 명령 실행 전후에만 합니다.
 
@@ -27,4 +27,7 @@
 - Store 인터페이스는 `src/types.ts`에 있고, 명령을 만들 때마다 메서드를 하나씩 추가합니다.
 - 입력 검증은 protocol/에서 합니다. commands/는 검증된 명령별 구조체(`src/types.ts`)를 받아 Reply를 돌려주며 에러를 만들지 않습니다.
 - HTTP는 명령별 주소 + 이름 붙은 JSON입니다. 예: `POST /set` + `{ "key": "token", "value": "abc", "nx": true, "ttl": 1000 }`
-- 라우팅(server/protocol 경계), 에러 응답 형식, 검증 규칙, 실제 서버 포트는 미정입니다.
+- server/는 body 읽기(1MB 초과 413)와 응답 쓰기만 하고, 라우팅·파싱·검증·Reply 변환은 protocol/의 동기 함수 `handle`이 합니다.
+- 성공 응답은 200 `{ "result": ... }`(success → "OK", nil → null), 에러는 상태 코드 + `{ "error": "..." }`(400 검증, 404 주소, 405 메서드, 413 크기, 500 예외)입니다. 타입은 `src/types.ts`의 `HttpResponse`입니다.
+- 검증 규칙: body는 JSON 객체, 모르는 필드·잘못된 타입은 400, key는 빈 문자열 불가, value는 빈 문자열 허용, ttl은 1 이상의 정수, SET의 nx/ttl은 생략 가능.
+- 포트는 환경변수 `PORT`, 기본 3000입니다. `GET /health`만 POST가 아닌 예외입니다.
