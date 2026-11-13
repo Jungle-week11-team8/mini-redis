@@ -19,6 +19,12 @@ export function createStore(): Store {
     get(key) {
       return lookup(key)?.value ?? null;
     },
+    has(key) {
+      return lookup(key) !== undefined;
+    },
+    delete(key) {
+      return lookup(key) !== undefined && data.delete(key);
+    },
     set(key, value) {
       data.set(key, { value });
     },

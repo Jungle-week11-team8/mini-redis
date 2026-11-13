@@ -12,6 +12,9 @@ export type Reply =
 // Methods are added one per command as each command is built.
 export type Store = {
   get(key: string): string | null;
+  has(key: string): boolean;
+  // true only if a live (non-expired) key was removed.
+  delete(key: string): boolean;
   // Overwrites the value and clears any TTL.
   set(key: string, value: string): void;
   // Expires the key ms from now; false if the key does not exist.

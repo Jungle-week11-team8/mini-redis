@@ -75,3 +75,34 @@ describe("ttl", () => {
     assert.equal(store.get("token"), "new");
   });
 });
+
+describe("has and delete", () => {
+  beforeEach(() => mock.timers.enable({ apis: ["Date"], now: 0 }));
+  afterEach(() => mock.timers.reset());
+
+  test("has reports live keys only", () => {
+    const store = createStore();
+    assert.equal(store.has("token"), false);
+    store.set("token", "abc");
+    assert.equal(store.has("token"), true);
+    store.setExpiry("token", 1000);
+    mock.timers.tick(1000);
+    assert.equal(store.has("token"), false);
+  });
+
+  test("delete removes a live key and returns true", () => {
+    const store = createStore();
+    store.set("token", "abc");
+    assert.equal(store.delete("token"), true);
+    assert.equal(store.get("token"), null);
+    assert.equal(store.delete("token"), false);
+  });
+
+  test("delete on an expired key returns false", () => {
+    const store = createStore();
+    store.set("token", "abc");
+    store.setExpiry("token", 1000);
+    mock.timers.tick(1000);
+    assert.equal(store.delete("token"), false);
+  });
+});
