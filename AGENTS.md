@@ -21,4 +21,5 @@
 
 - 통신은 HTTP, 지원할 명령은 SET/GET/DEL/EXPIRE입니다.
 - 값은 문자열, TTL 단위는 ms입니다. nil은 HTTP 응답에서 JSON null로 표현합니다.
-- Command 객체, Store 인터페이스, 명령 엔드포인트, 오류 검증 계층, 실제 서버 포트, 별도 백엔드 API 언어는 미정입니다.
+- 백엔드 API node.js + HTTP로 구현합니다.
+- Command 객체, Store 인터페이스, 명령 엔드포인트, 오류 검증 계층, 실제 서버 포트는 미정입니다.

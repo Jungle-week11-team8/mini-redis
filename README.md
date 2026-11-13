@@ -35,7 +35,7 @@ macOS는 `~/.zshrc`에 다음을 추가하고 새 터미널을 엽니다.
 eval "$(fnm env --use-on-cd --shell zsh)"
 ```
 
-`.env` 복사: PowerShell은 `Copy-Item .env.example .env`, macOS는 `cp .env.example .env`를 사용합니다.
+`.env` 복사: Po
 
 ## 실제 Redis 비교 환경
 
@@ -43,4 +43,4 @@ Docker Desktop을 실행한 상태에서 `npm run redis:compare`를 실행합니
 
 ## 개발 확인용 범위
 
-`/health`와 포트 3000은 환경 확인용입니다. 명령 엔드포인트와 실제 서버 포트는 미정입니다. SET은 덮어쓰기 시 기존 TTL을 제거하며, NX는 키가 있으면 nil, GET은 없음·만료 시 nil, DEL은 삭제 개수, EXPIRE는 TTL(ms) 변경 및 키 없음 시 nil을 반환하도록 구현할 예정입니다.
+`/health`와 포트 3000은 환경 확인용입니다. 명령 엔드포인트는 `POST http://127.0.0.1:3000/mini-redis`. SET은 덮어쓰기 시 기존 TTL을 제거하며, NX는 키가 있으면 nil, GET은 없음·만료 시 nil, DEL은 삭제 개수, EXPIRE는 TTL(ms) 변경 및 키 없음 시 nil을 반환하도록 구현할 예정입니다.werShell은 `Copy-Item .env.example .env`, macOS는 `cp .env.example .env`를 사용합니다.
