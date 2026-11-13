@@ -16,10 +16,13 @@
 - 계층 간 공통 타입은 `src/types.ts`에 정의합니다.
 - 명령 하나는 commands/ 아래 파일 하나와 test/ 아래 테스트 하나로 구성합니다.
 - 에러 응답 형식은 합의 후 `src/types.ts`에 정의하고 그 정의를 따릅니다.
+- 명령 실행 경로(commands/, store/)는 동기로 작성하고 `await`를 쓰지 않습니다. 싱글 스레드에서 명령의 원자성은 이 규칙에 기댑니다.
+- 비동기 작업(HTTP body 읽기 등)은 protocol/ 이상에서 명령 실행 전후에만 합니다.
 
 ## 확정 범위
 
 - 통신은 HTTP, 지원할 명령은 SET/GET/DEL/EXPIRE입니다.
 - 값은 문자열, TTL 단위는 ms입니다. nil은 HTTP 응답에서 JSON null로 표현합니다.
 - 백엔드 API node.js + HTTP로 구현합니다.
-- Command 객체, Store 인터페이스, 명령 엔드포인트, 오류 검증 계층, 실제 서버 포트는 미정입니다.
+- Store 인터페이스는 `src/types.ts`에 있고, 명령을 만들 때마다 메서드를 하나씩 추가합니다.
+- Command 객체, 명령 엔드포인트, 오류 검증 계층, 실제 서버 포트는 미정입니다.
