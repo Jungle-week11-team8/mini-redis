@@ -21,4 +21,15 @@ export type Store = {
   setExpiry(key: string, ms: number): boolean;
 };
 
-// Command and error response shapes are not finalized.
+// Command inputs arrive already validated by protocol/.
+export type SetInput = {
+  key: string;
+  value: string;
+  nx?: boolean;
+  ttl?: number;
+};
+export type GetInput = { key: string };
+export type DelInput = { key: string };
+export type ExpireInput = { key: string; ttl: number };
+
+// Error response shape is not finalized (decided in the protocol unit).
