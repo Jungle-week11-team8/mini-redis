@@ -1,0 +1,23 @@
+{
+  "name": "mini-redis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mini Redis HTTP server development environment",
+  "type": "module",
+  "main": "src/index.ts",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/index.ts",
+    "dev": "node --watch --env-file=.env src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "redis:compare": "docker run --rm -p 127.0.0.1:6380:6379 redis"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  }
+}

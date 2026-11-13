@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/
+*.rdb
+*.aof
+coverage/
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+.claude
+skills-lock.json
+.agents
