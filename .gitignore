@@ -12,3 +12,4 @@ coverage/
 Thumbs.db
 .claude
 skills-lock.json
+.agents

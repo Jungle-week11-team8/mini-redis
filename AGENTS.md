@@ -25,4 +25,6 @@
 - 값은 문자열, TTL 단위는 ms입니다. nil은 HTTP 응답에서 JSON null로 표현합니다.
 - 백엔드 API node.js + HTTP로 구현합니다.
 - Store 인터페이스는 `src/types.ts`에 있고, 명령을 만들 때마다 메서드를 하나씩 추가합니다.
-- Command 객체, 명령 엔드포인트, 오류 검증 계층, 실제 서버 포트는 미정입니다.
+- 입력 검증은 protocol/에서 합니다. commands/는 검증된 명령별 구조체(`src/types.ts`)를 받아 Reply를 돌려주며 에러를 만들지 않습니다.
+- HTTP는 명령별 주소 + 이름 붙은 JSON입니다. 예: `POST /set` + `{ "key": "token", "value": "abc", "nx": true, "ttl": 1000 }`
+- 라우팅(server/protocol 경계), 에러 응답 형식, 검증 규칙, 실제 서버 포트는 미정입니다.
