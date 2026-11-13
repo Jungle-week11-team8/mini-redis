@@ -12,7 +12,10 @@ export type Reply =
 // Methods are added one per command as each command is built.
 export type Store = {
   get(key: string): string | null;
+  // Overwrites the value and clears any TTL.
   set(key: string, value: string): void;
+  // Expires the key ms from now; false if the key does not exist.
+  setExpiry(key: string, ms: number): boolean;
 };
 
 // Command and error response shapes are not finalized.
