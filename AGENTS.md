@@ -18,6 +18,7 @@
 - 에러 응답 형식은 `src/types.ts`의 정의를 따릅니다.
 - 명령 실행 경로(commands/, store/)는 동기로 작성하고 `await`를 쓰지 않습니다. 싱글 스레드에서 명령의 원자성은 이 규칙에 기댑니다.
 - 비동기 작업(HTTP body 읽기 등)은 protocol/ 이상에서 명령 실행 전후에만 합니다.
+- `src/client/`는 서버 계층 밖의 HTTP 클라이언트입니다. `src/types.ts`의 타입만 import하고 서버 코드는 import하지 않습니다. `createClient(baseUrl)`로 만들고, 에러 응답(4xx/5xx)은 예외로 던집니다.
 
 ## 확정 범위
 
