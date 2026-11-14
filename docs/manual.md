@@ -56,6 +56,7 @@ npm start       # 한 번 실행
 
 `http://127.0.0.1:3000/health`에서 `{ "status": "ok" }`가 오면 정상입니다.
 
+
 ### 테스트와 타입 검사
 
 ```bash
@@ -82,6 +83,8 @@ Docker Desktop을 켠 상태에서 `npm run redis:compare`를 실행하면 실�
 - 성공: `200 { "result": ... }`
 - 실패: 상태 코드 + `{ "error": "..." }`
 
+<br>
+
 | 상태 코드 | 상황 |
 | --- | --- |
 | 400 | JSON이 아님, 모르는 필드, 필수 필드 없음, 타입이 틀림 |
@@ -90,6 +93,8 @@ Docker Desktop을 켠 상태에서 `npm run redis:compare`를 실행하면 실�
 | 413 | body가 1MB 초과 |
 | 500 | 서버 내부 예외 |
 
+<br>
+
 **입력 규칙**
 
 - `key`: 빈 문자열 불가
@@ -97,6 +102,8 @@ Docker Desktop을 켠 상태에서 `npm run redis:compare`를 실행하면 실�
 - `ttl`: 1 이상의 정수, 단위는 ms
 - `nx`: `true`면 키가 없을 때만 저장
 - SET은 기존 값을 덮어쓰고, 기존 TTL도 지웁니다.
+
+<br>
 
 ### 간단한 사용 방법
 
@@ -122,6 +129,8 @@ await client.get("token:abc");                          // null
 
 await client.get("");          // 예외: mini-redis 400: invalid field: key
 ```
+
+<br>
 
 ## 2. 사용 방법 (데모)
 
